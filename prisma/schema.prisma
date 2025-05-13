@@ -18,15 +18,87 @@ enum UserStatus {
   PENDING
 }
 
+enum DogSize {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+enum Temperament {
+  CALM
+  ACTIVE
+  AGGRESSIVE
+  FRIENDLY
+  SHY
+}
+
 model User {
-  id      Int      @id @default(autoincrement())
-  uuid    String   @unique
-  email   String   @unique
-  name    String
+  id        Int        @id @default(autoincrement())
+  uuid      String     @unique
+  email     String     @unique
+  name      String
   telephone String
-  password String
-  role       Role
-  status     UserStatus @default(PENDING)
+  password  String
+  role      Role
+  status    UserStatus @default(PENDING)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  tutor     Tutor?
+  walker    Walker?
+}
+
+model Tutor {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  dogs      Dog[]
+}
+
+model Walker {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       Int      @unique
+  experience   String?
+  rating       Float?
+  availability String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Walk         Walk[]
+}
+
+model Dog {
+  id        Int       @id @default(autoincrement())
+  name      String
+  breed     String
+  weight    DogSize
+  observation String?
+  owner     Tutor     @relation(fields: [ownerId], references: [id])
+  ownerId   Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  WalkDog   WalkDog[]
+}
+
+model Walk {
+  id        Int       @id @default(autoincrement())
+  walker    Walker    @relation(fields: [walkerId], references: [id])
+  walkerId  Int
+  path      Json
+  date      DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  WalkDog   WalkDog[]
+}
+
+model WalkDog {
+  id        Int      @id @default(autoincrement())
+  walk      Walk     @relation(fields: [walkId], references: [id])
+  walkId    Int
+  dog       Dog      @relation(fields: [dogId], references: [id])
+  dogId     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
