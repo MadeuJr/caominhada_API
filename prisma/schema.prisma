@@ -24,14 +24,6 @@ enum DogSize {
   LARGE
 }
 
-enum Temperament {
-  CALM
-  ACTIVE
-  AGGRESSIVE
-  FRIENDLY
-  SHY
-}
-
 model User {
   id        Int        @id @default(autoincrement())
   uuid      String     @unique
@@ -66,7 +58,7 @@ model Walker {
   availability String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  Walk         Walk[]
+  Trip         Trip[]
 }
 
 model Dog {
@@ -79,10 +71,10 @@ model Dog {
   ownerId   Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  WalkDog   WalkDog[]
+  TripDog   TripDog[]
 }
 
-model Walk {
+model Trip {
   id        Int       @id @default(autoincrement())
   walker    Walker    @relation(fields: [walkerId], references: [id])
   walkerId  Int
@@ -90,12 +82,12 @@ model Walk {
   date      DateTime
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  WalkDog   WalkDog[]
+  TripDog   TripDog[]
 }
 
-model WalkDog {
+model TripDog {
   id        Int      @id @default(autoincrement())
-  walk      Walk     @relation(fields: [walkId], references: [id])
+  walk      Trip     @relation(fields: [walkId], references: [id])
   walkId    Int
   dog       Dog      @relation(fields: [dogId], references: [id])
   dogId     Int

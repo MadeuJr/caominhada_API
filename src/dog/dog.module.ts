@@ -3,8 +3,7 @@ import { DogService } from './dog.service';
 import { DogController } from './dog.controller';
 
 @Module({
+  controllers: [DogController],
   providers: [DogService],
-  controllers: [DogController]
 })
 export class DogModule {}
-  ''

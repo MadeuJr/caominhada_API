@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { WalkerModule } from './walker/walker.module';
+import { UserModule } from './user/user.module';
 import { TutorModule } from './tutor/tutor.module';
+import { WalkerModule } from './walker/walker.module';
 import { DogModule } from './dog/dog.module';
-import { TripModule } from './trip/trip.module';
 
 @Module({
-  imports: [WalkerModule, TutorModule, DogModule, TripModule],
+  imports: [UserModule, TutorModule, WalkerModule, DogModule],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+1

@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { WalkerController } from './walker.controller';
 import { WalkerService } from './walker.service';
+import { WalkerController } from './walker.controller';
 
 @Module({
-  imports: [],
   controllers: [WalkerController],
   providers: [WalkerService],
 })
