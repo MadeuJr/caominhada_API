@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWalkerDto } from './dto/create-walker.dto';
 import { UpdateWalkerDto } from './dto/update-walker.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class WalkerService {
+  constructor(private prisma: PrismaService) {}
+
   create(createWalkerDto: CreateWalkerDto) {
-    return 'This action adds a new walker';
+    return this.prisma.walker.create({
+      data: createWalkerDto,
+    });
   }
 
   findAll() {
