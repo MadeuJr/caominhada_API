@@ -1,8 +1,8 @@
-import {  IsEnum, IsString, IsNumber, IsNotEmpty } from 'class-validator';
+import { IsEnum, IsString, IsNumber, IsNotEmpty } from 'class-validator';
 
 enum Availability {
-    AVAILABLE = 'AVAILABLE',
-    UNAVAILABLE = 'UNAVAILABLE'
+  AVAILABLE = 'AVAILABLE',
+  UNAVAILABLE = 'UNAVAILABLE',
 }
 
 export class CreateWalkerDto {
@@ -10,9 +10,9 @@ export class CreateWalkerDto {
   @IsNotEmpty()
   readonly name: string;
 
-    @IsNumber()    
-    readonly userId: number;
-    
-    @IsEnum(Availability)
-    readonly availability: Availability;;
+  @IsNumber()
+  readonly userId: number;
+
+  @IsEnum(Availability)
+  readonly availability: Availability;
 }
