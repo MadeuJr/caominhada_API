@@ -1,4 +1,8 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from '@nestjs/passport';
+import { ConfigModule } from '@nestjs/config';
+import { JwtStrategy } from './auth/strategies/jwt.strategy';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -7,11 +11,27 @@ import { WalkerModule } from './walker/walker.module';
 import { DogModule } from './dog/dog.module';
 import { TripModule } from './trip/trip.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { JwtAuthGuard } from './auth/guard/jwt.guard.auth';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UserModule, TutorModule, WalkerModule, DogModule, TripModule, PrismaModule],
+  imports: [
+    UserModule,
+    TutorModule,
+    WalkerModule,
+    DogModule,
+    TripModule,
+    PrismaModule,
+    AuthModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    JwtStrategy,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
-1
