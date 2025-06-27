@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 enum DogSize {
   SMALL = 'SMALL',
@@ -7,6 +7,10 @@ enum DogSize {
 }
 
 export class CreateDogDto {
+  @IsNumber()
+  @IsNotEmpty()
+  readonly ownerId;
+
   @IsString()
   @IsNotEmpty()
   readonly name;
@@ -20,10 +24,6 @@ export class CreateDogDto {
   readonly weight;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   readonly observation;
-
-  @IsNumber()
-  @IsNotEmpty()
-  readonly ownerId;
 }

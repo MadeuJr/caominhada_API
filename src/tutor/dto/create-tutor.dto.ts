@@ -7,6 +7,6 @@ export class CreateTutorDto {
 
   @IsNumber()
   @IsNotEmpty()
-  readonly user;
+  readonly userId;
   
 }
