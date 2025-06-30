@@ -6,31 +6,31 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class DogService {
   constructor(private prismaService: PrismaService){}
-  create(createDogDto: CreateDogDto) {
-    return this.prismaService.dog.create({
+  async create(createDogDto: CreateDogDto) {
+    return await this.prismaService.dog.create({
       data: createDogDto
     })
   }
 
-  findAll() {
-    return this.prismaService.dog.findMany();
+  async findAll() {
+    return await this.prismaService.dog.findMany();
   }
 
-  findOne(id: number) {
-    return this.prismaService.dog.findUnique({
+  async findOne(id: number) {
+    return await this.prismaService.dog.findUnique({
       where: { id }
     });
   }
 
-  update(id: number, updateDogDto: UpdateDogDto) {
-    return this.prismaService.dog.update({
+  async update(id: number, updateDogDto: UpdateDogDto) {
+    return await this.prismaService.dog.update({
       where: { id },
       data: updateDogDto
     })
   }
 
-  remove(id: number) {
-    return this.prismaService.dog.delete({
+  async remove(id: number) {
+    return await this.prismaService.dog.delete({
       where: { id }
     })
   }

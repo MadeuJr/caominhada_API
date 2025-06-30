@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsOptional,
   IsString,
 } from 'class-validator';
 
@@ -37,7 +38,7 @@ export class CreateUserDto {
   @IsEnum(Role)
   readonly role: Role;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(UserStatus)
-  readonly status: UserStatus;
+  readonly status: UserStatus | UserStatus.ACTIVE;
 }

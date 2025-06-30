@@ -11,6 +11,7 @@ import { TripModule } from './trip/trip.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtAuthGuard } from './auth/guard/jwt.guard.auth';
 import { AuthModule } from './auth/auth.module';
+import { LocationGateway } from './location/location.gateway';
 
 @Module({
   imports: [
@@ -25,11 +26,12 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [
     AppService,
-    // JwtStrategy,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
+    JwtStrategy,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    LocationGateway,
   ],
 })
 export class AppModule {}

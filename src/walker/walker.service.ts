@@ -8,30 +8,41 @@ export class WalkerService {
   constructor(private prisma: PrismaService) {}
 
   async create(createWalkerDto: CreateWalkerDto) {
-    return this.prisma.walker.create({
+    return await this.prisma.walker.create({
       data: createWalkerDto,
     });
   }
 
   async findAll() {
-    return this.prisma.walker.findMany();
+    return await this.prisma.walker.findMany();
   }
 
   async findOne(id: number) {
-    return this.prisma.walker.findUnique({
-      where: { id },
+    return await this.prisma.walker.findUnique({
+      where: { userId: id },
     });
   }
 
- async  update(id: number, updateWalkerDto: UpdateWalkerDto) {
+ async update(id: number, updateWalkerDto: UpdateWalkerDto) {
     return this.prisma.walker.update({
       where: { id },
       data: updateWalkerDto,
     });
   }
 
+  async getTutorsbyWalkerId(id: number) {
+    return await this.prisma.tutor.findMany({
+      where: { walkerId: id },
+      include: {
+        user: {
+          select: { name: true }
+        }
+      }
+    });
+  }
+
   async remove(id: number) {
-    return this.prisma.walker.delete({
+    return await this.prisma.walker.delete({
       where: { id },
     });
   }

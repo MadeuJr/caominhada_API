@@ -22,6 +22,16 @@ export class TutorController {
     return this.tutorService.findOne(+id);
   }
 
+  @Get(':id/walker')
+  getWalkerByTutor(@Param('id') id: string) {
+    return this.tutorService.getWalkerByTutorID(+id)
+  }
+
+  @Get(':id/dogs')
+  getDogsByTutor(@Param('id') id: string) {
+    return this.tutorService.getDogsbyTutorId(+id)
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTutorDto: UpdateTutorDto) {
     return this.tutorService.update(+id, updateTutorDto);

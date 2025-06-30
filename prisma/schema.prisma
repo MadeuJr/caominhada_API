@@ -48,6 +48,8 @@ model Tutor {
   id        Int      @id @default(autoincrement())
   user      User     @relation(fields: [userId], references: [id])
   userId    Int      @unique
+  walker    Walker?  @relation(fields: [walkerId], references: [id])
+  walkerId  Int?
   address   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -55,14 +57,16 @@ model Tutor {
 }
 
 model Walker {
-  id           Int      @id @default(autoincrement())
-  user         User     @relation(fields: [userId], references: [id])
-  userId       Int      @unique
-  rating       Float?   @default(5)
+  id           Int                @id @default(autoincrement())
+  user         User               @relation(fields: [userId], references: [id])
+  userId       Int                @unique
+  rating       Float?             @default(5)
   availability WalkerAvailability @default(AVAILABLE)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
   Trip         Trip[]
+
+  Tutor Tutor[]
 }
 
 model Dog {

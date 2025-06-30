@@ -13,26 +13,47 @@ export class TutorService {
     });
   }
 
-  findAll() {
-    return this.prisma.tutor.findMany();
+  async findAll() {
+    return await this.prisma.tutor.findMany();
   }
 
-  findOne(id: number) {
-    return this.prisma.tutor.findUnique({
-      where: { id },
+  async findOne(id: number) {
+    return await this.prisma.tutor.findUnique({
+      where: { userId: id },
     });
+  }
+
+  async getWalkerByTutorID(id: number) {
+    const tutor = await this.prisma.tutor.findUnique({
+      where: { userId: id },
+      select: { walkerId: true },
+    });
+
+    if (!tutor || !tutor.walkerId) {
+      throw new NotFoundException('Walker not found for this tutor');
+    }
+
+    return this.prisma.walker.findUnique({
+      where: { id: tutor.walkerId },
+    });
+  }
+
+  async getDogsbyTutorId(id: number) {
+    return await this.prisma.dog.findMany({
+      where: { ownerId: id}
+    })
   }
 
   update(id: number, updateTutorDto: UpdateTutorDto) {
     return this.prisma.tutor.update({
       where: { id },
-      data: updateTutorDto
+      data: updateTutorDto,
     });
   }
 
   remove(id: number) {
     return this.prisma.tutor.delete({
-      where: {id}
-    })
+      where: { id },
+    });
   }
 }

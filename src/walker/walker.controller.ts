@@ -22,6 +22,11 @@ export class WalkerController {
     return this.walkerService.findOne(+id);
   }
 
+  @Get(':id/tutors')
+  getTutors(@Param('id') id: string) {
+    return this.walkerService.getTutorsbyWalkerId(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateWalkerDto: UpdateWalkerDto) {
     return this.walkerService.update(+id, updateWalkerDto);
